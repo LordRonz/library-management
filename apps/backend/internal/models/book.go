@@ -34,7 +34,6 @@ type UpdateBookRequest struct {
 	Genre       *string `json:"genre,omitempty" validate:"omitempty,max=100"`
 }
 
-// URL Processing models
 type URLProcessRequest struct {
 	URL       string `json:"url" validate:"required,url"`
 	Operation string `json:"operation" validate:"required,oneof=canonical redirection all"`

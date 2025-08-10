@@ -35,12 +35,10 @@ import (
 // @host localhost:8080
 // @BasePath /api
 func main() {
-	// Load environment variables
 	if err := godotenv.Load(); err != nil {
 		log.Println("No .env file found")
 	}
 
-	// Initialize logger
 	logger := logrus.New()
 	logger.SetFormatter(&logrus.JSONFormatter{})
 
@@ -48,10 +46,8 @@ func main() {
 		logger.SetLevel(logrus.DebugLevel)
 	}
 
-	// Load configuration
 	cfg := config.Load()
 
-	// Initialize database
 	db, err := database.NewConnection(
 		cfg.Database.Host,
 		cfg.Database.Port,
@@ -65,34 +61,27 @@ func main() {
 	}
 	defer db.Close()
 
-	// Initialize validator
 	validate := validator.New()
 
-	// Initialize services
 	bookService := services.NewBookService(db.DB, logger)
 	urlService := services.NewURLService(logger)
 
-	// Initialize handlers
 	bookHandler := handlers.NewBookHandler(bookService, validate, logger)
 	urlHandler := handlers.NewURLHandler(urlService, validate, logger)
 
-	// Initialize Gin router
 	if cfg.Server.Mode == "production" {
 		gin.SetMode(gin.ReleaseMode)
 	}
 
 	router := gin.New()
 
-	// Middleware
 	router.Use(middleware.Logger(logger))
 	router.Use(middleware.CORS())
 	router.Use(middleware.ErrorHandler(logger))
 	router.Use(gin.Recovery())
 
-	// API routes
 	api := router.Group("/api")
 	{
-		// Book routes
 		books := api.Group("/books")
 		{
 			books.GET("", bookHandler.GetBooks)
@@ -102,14 +91,11 @@ func main() {
 			books.DELETE("/:id", bookHandler.DeleteBook)
 		}
 
-		// URL processing route
 		api.POST("/url-process", urlHandler.ProcessURL)
 	}
 
-	// Swagger documentation
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	// Health check
 	router.GET("/health", func(c *gin.Context) {
 		c.JSON(200, gin.H{"status": "ok"})
 	})

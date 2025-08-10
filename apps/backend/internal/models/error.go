@@ -12,6 +12,6 @@ type ValidationError struct {
 }
 
 type ValidationErrorResponse struct {
-	Error  string             `json:"error"`
+	Error  string            `json:"error"`
 	Errors []ValidationError `json:"errors"`
 }

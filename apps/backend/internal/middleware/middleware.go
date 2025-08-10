@@ -7,7 +7,6 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-// Logger is a middleware function that logs requests using logrus.
 func Logger(log *logrus.Logger) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		start := time.Now()
@@ -25,7 +24,6 @@ func Logger(log *logrus.Logger) gin.HandlerFunc {
 	}
 }
 
-// CORS is a middleware function that enables Cross-Origin Resource Sharing.
 func CORS() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
@@ -42,15 +40,12 @@ func CORS() gin.HandlerFunc {
 	}
 }
 
-// ErrorHandler is a middleware function that handles errors gracefully.
 func ErrorHandler(log *logrus.Logger) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.Next()
 
 		for _, err := range c.Errors {
 			log.WithError(err.Err).Error("encountered an error")
-			// You can customize the error response here
-			// c.JSON(-1, gin.H{"error": err.Error()})
 		}
 	}
 }

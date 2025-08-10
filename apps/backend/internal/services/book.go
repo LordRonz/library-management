@@ -126,7 +126,6 @@ func (s *BookService) UpdateBook(id string, req *models.UpdateBookRequest) (*mod
 		return nil, fmt.Errorf("failed to update book: %w", err)
 	}
 
-	// Return updated book
 	updatedBook := &models.Book{
 		ID:          existingBook.ID,
 		Title:       req.Title,

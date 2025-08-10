@@ -5,8 +5,8 @@ import (
 	"net/url"
 	"strings"
 
-	"library-management-backend/internal/models"
 	"github.com/sirupsen/logrus"
+	"library-management-backend/internal/models"
 )
 
 type URLService struct {
@@ -70,9 +70,9 @@ func (s *URLService) redirectionOperation(parsedURL *url.URL) string {
 func (s *URLService) allOperations(parsedURL *url.URL) string {
 	parsedURL.Host = "www.byfood.com"
 	parsedURL.Path = strings.ToLower(parsedURL.Path)
-	
+
 	parsedURL.RawQuery = ""
 	parsedURL.Path = strings.TrimSuffix(parsedURL.Path, "/")
-	
+
 	return strings.ToLower(parsedURL.String())
 }

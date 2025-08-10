@@ -3,11 +3,11 @@ package handlers
 import (
 	"net/http"
 
-	"library-management-backend/internal/models"
-	"library-management-backend/internal/services"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 	"github.com/sirupsen/logrus"
+	"library-management-backend/internal/models"
+	"library-management-backend/internal/services"
 )
 
 type URLHandler struct {
@@ -36,7 +36,7 @@ func NewURLHandler(urlService *services.URLService, validator *validator.Validat
 // @Router /url-process [post]
 func (h *URLHandler) ProcessURL(c *gin.Context) {
 	var req models.URLProcessRequest
-	
+
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, models.ErrorResponse{
 			Error:   "Bad Request",
@@ -69,7 +69,7 @@ func (h *URLHandler) ProcessURL(c *gin.Context) {
 
 func (h *URLHandler) formatValidationErrors(err error) []models.ValidationError {
 	var errors []models.ValidationError
-	
+
 	for _, err := range err.(validator.ValidationErrors) {
 		var message string
 		switch err.Tag() {
@@ -82,12 +82,12 @@ func (h *URLHandler) formatValidationErrors(err error) []models.ValidationError 
 		default:
 			message = "Invalid value"
 		}
-		
+
 		errors = append(errors, models.ValidationError{
 			Field:   err.Field(),
 			Message: message,
 		})
 	}
-	
+
 	return errors
 }
