@@ -123,6 +123,12 @@ The backend, including the PostgreSQL database, is containerized using Docker.
   ```
 
   The application will be available at `http://localhost:3000`.
+- Running the backend and frontend **AT THE SAME TIME:**
+  At the project root directory, run:
+
+  ```bash
+  pnpm dev
+  ```
 
 ## Running Tests
 
@@ -162,6 +168,9 @@ This project is a monorepo with the following structure:
 
 ## Screenshots
 
+![1754842190953](image/README/1754842190953.png)
+
+![1754842200567](image/README/1754842200567.png)![1754842224921](image/README/1754842224921.png)![1754842235642](image/README/1754842235642.png)![1754842248973](image/README/1754842248973.png)
 
 ![1754840541496](image/README/1754840541496.png)
 
