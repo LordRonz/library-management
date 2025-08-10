@@ -1,0 +1,23 @@
+{
+  "name": "byfood-assessment",
+  "version": "1.0.0",
+  "description": "Docupeace monorepo - Next.js frontend and FastAPI backend",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:frontend": "pnpm --filter frontend dev",
+    "dev:backend": "cd apps/backend && uv run uvicorn src.main:app --reload --host 0.0.0.0 --port 8000",
+    "build:frontend": "pnpm --filter frontend build",
+    "start:frontend": "pnpm --filter frontend start",
+    "lint:frontend": "pnpm --filter frontend lint",
+    "dev": "concurrently \"pnpm dev:frontend\" \"pnpm dev:backend\"",
+    "install:all": "pnpm install && cd apps/backend && uv sync"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  },
+  "packageManager": "pnpm@9.0.0"
+}
