@@ -57,6 +57,7 @@ func (s *URLService) ProcessURL(req *models.URLProcessRequest) (*models.URLProce
 
 func (s *URLService) canonicalOperation(parsedURL *url.URL) string {
 	parsedURL.RawQuery = ""
+	parsedURL.Fragment = ""
 	parsedURL.Path = strings.TrimSuffix(parsedURL.Path, "/")
 	return parsedURL.String()
 }
@@ -72,6 +73,7 @@ func (s *URLService) allOperations(parsedURL *url.URL) string {
 	parsedURL.Path = strings.ToLower(parsedURL.Path)
 
 	parsedURL.RawQuery = ""
+	parsedURL.Fragment = ""
 	parsedURL.Path = strings.TrimSuffix(parsedURL.Path, "/")
 
 	return strings.ToLower(parsedURL.String())
